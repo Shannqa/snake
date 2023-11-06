@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(11, 20px);
+  column-gap: 0px;
+  row-gap: 0px;
+  justify-items: stretch;
+
+}
+
+.square {
+  width: 20px;
+  height: 20px;
+  border: 1px black solid;
+  background: white;
+  margin: 0px;
+}
+
+.snake {
+  background-color: red;
+}
+
+.column-1 {
+  background-color: blue;
+}

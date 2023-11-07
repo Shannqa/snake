@@ -83,11 +83,44 @@ export function move(direction) {
     refreshSnake();
 
   } else if (direction == "left") {
+    let numberBefore = Number(snake[0][1]);
+    let numberAfter = numberBefore - 1;
+    
+    // is move valid?
+    if (snake[0][1] <= 0) return;
+  
+    // move valid
+    snakeClass.forEach((div) => {
+      div.classList.remove("snake-body");
+    });
+
+//console.log(numberAfter);
+    snake.unshift([snake[0][0], numberAfter, direction]);
+    snake.pop();
+    
+    console.log(snake);
+
+    refreshSnake();
     
   } else if (direction == "right") {
-    if (snake[0][1] >= gridSize ) {
-      return;
-    }
+    let numberBefore = Number(snake[0][1]);
+    let numberAfter = numberBefore + 1;
+    // is move valid?
+    if (snake[0][1] >= gridSize) return;
+  
+    // move valid
+    snakeClass.forEach((div) => {
+      div.classList.remove("snake-body");
+    });
+
+//console.log(numberAfter);
+    snake.unshift([snake[0][0], numberAfter, direction]);
+    snake.pop();
+    
+    console.log(snake);
+
+    refreshSnake();
+    /*
     console.log(snakeClass);
     //snakeClass
     snakeClass.forEach((div) => {
@@ -98,32 +131,26 @@ export function move(direction) {
       row[1]++;
     });
     
-    refreshSnake();
+    refreshSnake();*/
 
   } else if (direction == "down") {
-    // move the head down
+    let letterBefore = snake[0][0];
+    
+    // is move valid? 
+    if (letterBefore == `${alphabet[gridSize]}`) return;
+
+    // move valid
     snakeClass.forEach((div) => {
       div.classList.remove("snake-body");
 
     });
-    let headLetter = snake[0][0]; 
-    snake[0][0] = getNextLetter(headLetter);
-   // console.log(snake[1][1]++);
-    // each row except last
-    
-    for (let index = 1; index < snake.length; index++) {
-    snake[index][1]++;
-    }
-  
-    refreshSnake();
+    let letterAfter = getLetter(letterBefore, "next");
 
-    
-/*
-    snake[snake.length - 1][0] = 
-    alphabet[x]
-    
-    find index of alphabet the same as head[0]
-    change to alphabet[index + 1] */
+    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
+         ]);
+    snake.pop();
+
+    refreshSnake();
   }
 }
 

@@ -63,7 +63,12 @@ refreshSnake();
 export function move(direction) {
   let snakeClass = document.querySelectorAll(".snake-body");
 
+// dont move the same direction
+
   if (direction == "up") {
+    // block moving opposite way
+    if (snake[0][2] == "down") return;
+
     let letterBefore = snake[0][0];
     
     // is move valid? 
@@ -83,18 +88,20 @@ export function move(direction) {
     refreshSnake();
 
   } else if (direction == "left") {
+    // block moving opposite way
+    if (snake[0][2] == "right") return;
+
+    // is move valid?
+    if (snake[0][1] <= 1) return;
+    
     let numberBefore = Number(snake[0][1]);
     let numberAfter = numberBefore - 1;
     
-    // is move valid?
-    if (snake[0][1] <= 0) return;
-  
     // move valid
     snakeClass.forEach((div) => {
       div.classList.remove("snake-body");
     });
 
-//console.log(numberAfter);
     snake.unshift([snake[0][0], numberAfter, direction]);
     snake.pop();
     
@@ -103,37 +110,31 @@ export function move(direction) {
     refreshSnake();
     
   } else if (direction == "right") {
-    let numberBefore = Number(snake[0][1]);
-    let numberAfter = numberBefore + 1;
+    // block moving opposite way
+    if (snake[0][2] == "left") return;
+
     // is move valid?
     if (snake[0][1] >= gridSize) return;
-  
+    
+    let numberBefore = Number(snake[0][1]);
+    let numberAfter = numberBefore + 1;
+
     // move valid
     snakeClass.forEach((div) => {
       div.classList.remove("snake-body");
     });
 
-//console.log(numberAfter);
     snake.unshift([snake[0][0], numberAfter, direction]);
     snake.pop();
     
     console.log(snake);
 
     refreshSnake();
-    /*
-    console.log(snakeClass);
-    //snakeClass
-    snakeClass.forEach((div) => {
-      div.classList.remove("snake-body");
-
-    });
-    snake.forEach((row) => {
-      row[1]++;
-    });
-    
-    refreshSnake();*/
 
   } else if (direction == "down") {
+    // block moving opposite way
+    if (snake[0][2] == "up") return;
+
     let letterBefore = snake[0][0];
     
     // is move valid? 
@@ -156,10 +157,11 @@ export function move(direction) {
 
 function refreshSnake() {
   
-    snake.forEach((row) => {
+  snake.forEach((row) => {
     const snakeCell = document.querySelector(`#${row[0]}-${row[1]}`);
     snakeCell.classList.add("snake-body");
   });
+    console.log("aaa");
 }
 
 function getLetter(letter, action) {

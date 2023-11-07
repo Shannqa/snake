@@ -1,9 +1,10 @@
 const gridSize = 10;
+const alphabet = "xabcdefghijklmnopqrstuvwxyz".split('');
 
-function createGridArray(size) {
+
+export function createGridArray(size) {
 
   const gridArray = [];
-  const alphabet ="xabcdefghijklmnopqrstuvwxyz".split('');
     // rows
     for (let r = 0; r < size + 1; r++) {
     gridArray.push([]);
@@ -16,7 +17,7 @@ function createGridArray(size) {
           // row with numbers
           gridArray[r].push(c);
         } else {
-          gridArray[r].push(`${alphabet[r]}${c}`);
+          gridArray[r].push(`${alphabet[r]}-${c}`);
         }
       
       }
@@ -24,7 +25,7 @@ function createGridArray(size) {
     return gridArray;
   }
   
-function createGrid() {
+export default function createGrid() {
   const array = createGridArray(gridSize);
   console.log(array);
 
@@ -57,4 +58,5 @@ function createGrid() {
   
 }
 
-export default createGrid;
+
+export { alphabet };

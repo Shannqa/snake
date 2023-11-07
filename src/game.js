@@ -1,4 +1,4 @@
-import { alphabet } from "./grid.js";
+import { alphabet, gridSize } from "./grid.js";
 
 console.log(alphabet);
 let snake = [
@@ -6,6 +6,11 @@ let snake = [
   ["a", "2"], 
   ["a", "3"]
 ];
+
+let snakeHead = snake[snake.length - 1];
+
+let turn = [
+  ];
 
 
 export default function playGame() {
@@ -15,15 +20,16 @@ refreshSnake();
 
 
 export function move(direction) {
-  
-  let snakeCoords;
+  let snakeClass = document.querySelectorAll(".snake-body");
 
   if (direction == "up") {
     
   } else if (direction == "left") {
     
   } else if (direction == "right") {
-    let snakeClass = document.querySelectorAll(".snake-body");
+    if (snakeHead[1] >= gridSize ) {
+      return;
+    }
     console.log(snakeClass);
     //snakeClass
     snakeClass.forEach((div) => {
@@ -38,8 +44,29 @@ export function move(direction) {
     console.log(snake);
     
   } else if (direction == "down") {
+    // move the head down
+    snakeClass.forEach((div) => {
+      div.classList.remove("snake-body");
+
+    });
+    let headLetter = snake[snake.length - 1][0]; 
+    snake[snake.length - 1][0] = getNextLetter(headLetter);
     
+    // each row except last
+    
+    for (let index = 0; index < snake.length - 1; index++) {
+    snake[index][1] += 1;
+    }
   
+    refreshSnake();
+
+    
+/*
+    snake[snake.length - 1][0] = 
+    alphabet[x]
+    
+    find index of alphabet the same as head[0]
+    change to alphabet[index + 1] */
   }
 }
 
@@ -50,3 +77,12 @@ function refreshSnake() {
     snakeCell.classList.add("snake-body");
   });
 }
+
+function getNextLetter(letter) {
+  let alphabetArray = alphabet;
+  let nr = alphabetArray.indexOf(letter);
+  let nextLetter = alphabetArray[nr + 1];
+  return nextLetter;
+}
+
+//console.log(getNextLetter("h"));

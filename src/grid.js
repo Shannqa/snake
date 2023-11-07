@@ -59,4 +59,4 @@ export default function createGrid() {
 }
 
 
-export { alphabet };
+export { alphabet, gridSize };

@@ -84,54 +84,18 @@ export function snakeTimer(direction) {
     refreshSnake();
   }
 }
-  /*
-  if (direction == "up") {
-    // block moving opposite way
-
-    let letterBefore = snake[0][0];
-    
-    // is move valid? 
-    if (letterBefore == "a") return;
-
-    // move valid
-    let letterAfter = getLetter(letterBefore, "previous");
-
-    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
-         ]);
-    snake.pop();
-
-    refreshSnake();
-
-    } else if (direction == "right") {
-    // is move valid?
-    if (snake[0][1] >= gridSize) return;
-    
-    let numberBefore = Number(snake[0][1]);
-    let numberAfter = numberBefore + 1;
-
-    // move valid
-    snake.unshift([snake[0][0], numberAfter, direction]);
-    snake.pop();
-    
-   // console.log(snake);
-
-    refreshSnake();
-*/
-
 
 export default function playGame() {
   
-refreshSnake();
+  refreshSnake();
 
 }
 
 
 export function move(direction) {
-  /* add when timer works
   // if the head is already moving in the same direction as the user wants, do nothing
   if (direction == snake[0][2]) return;
-  */
-
+  
   if (direction == "up") {
     // block moving opposite way
     if (snake[0][2] == "down") return;
@@ -243,7 +207,3 @@ function failGame() {
 function restartGame() {
   
 }
-
-// set timeouts for continuous movement same direction as head
-// arrow icons
-// spawn the food

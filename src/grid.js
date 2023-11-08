@@ -1,4 +1,4 @@
-const gridSize = 10;
+const gridSize = 20;
 const alphabet = "xabcdefghijklmnopqrstuvwxyz".split('');
 
 

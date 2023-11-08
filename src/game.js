@@ -32,6 +32,60 @@ export function snakeTimer(direction) {
   console.log(currentDirection);
   
   if (direction == "up") {
+    let letterBefore = snake[0][0];
+    
+    // is move valid? 
+    if (letterBefore == "a") return;
+
+    // move valid
+    let letterAfter = getLetter(letterBefore, "previous");
+
+    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
+         ]);
+    snake.pop();
+    refreshSnake();
+
+  } else if (direction == "left") {
+    // is move valid?
+    if (snake[0][1] <= 1) return;
+    
+    let numberBefore = Number(snake[0][1]);
+    let numberAfter = numberBefore - 1;
+    
+    // move valid
+    snake.unshift([snake[0][0], numberAfter, direction]);
+    snake.pop();
+    refreshSnake();
+    
+  } else if (direction == "right") {
+    // is move valid?
+    if (snake[0][1] >= gridSize) return;
+    
+    let numberBefore = Number(snake[0][1]);
+    let numberAfter = numberBefore + 1;
+
+    // move valid
+    snake.unshift([snake[0][0], numberAfter, direction]);
+    snake.pop();
+    refreshSnake();
+
+  } else if (direction == "down") {
+    let letterBefore = snake[0][0];
+    
+    // is move valid? 
+    if (letterBefore == `${alphabet[gridSize]}`) return;
+
+    // move valid
+    let letterAfter = getLetter(letterBefore, "next");
+
+    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
+         ]);
+    snake.pop();
+    refreshSnake();
+  }
+}
+  /*
+  if (direction == "up") {
     // block moving opposite way
 
     let letterBefore = snake[0][0];
@@ -40,10 +94,6 @@ export function snakeTimer(direction) {
     if (letterBefore == "a") return;
 
     // move valid
-    snakeClass.forEach((div) => {
-      div.classList.remove("snake-body");
-
-    });
     let letterAfter = getLetter(letterBefore, "previous");
 
     snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
@@ -52,8 +102,22 @@ export function snakeTimer(direction) {
 
     refreshSnake();
 
-  } 
-}
+    } else if (direction == "right") {
+    // is move valid?
+    if (snake[0][1] >= gridSize) return;
+    
+    let numberBefore = Number(snake[0][1]);
+    let numberAfter = numberBefore + 1;
+
+    // move valid
+    snake.unshift([snake[0][0], numberAfter, direction]);
+    snake.pop();
+    
+   // console.log(snake);
+
+    refreshSnake();
+*/
+
 
 export default function playGame() {
   
@@ -67,8 +131,6 @@ export function move(direction) {
   // if the head is already moving in the same direction as the user wants, do nothing
   if (direction == snake[0][2]) return;
   */
-  let snakeClass = document.querySelectorAll(".snake-body");
-
 
   if (direction == "up") {
     // block moving opposite way
@@ -80,10 +142,6 @@ export function move(direction) {
     if (letterBefore == "a") return;
 
     // move valid
-    snakeClass.forEach((div) => {
-      div.classList.remove("snake-body");
-
-    });
     let letterAfter = getLetter(letterBefore, "previous");
 
     snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
@@ -103,10 +161,6 @@ export function move(direction) {
     let numberAfter = numberBefore - 1;
     
     // move valid
-    snakeClass.forEach((div) => {
-      div.classList.remove("snake-body");
-    });
-
     snake.unshift([snake[0][0], numberAfter, direction]);
     snake.pop();
     
@@ -125,9 +179,6 @@ export function move(direction) {
     let numberAfter = numberBefore + 1;
 
     // move valid
-    snakeClass.forEach((div) => {
-      div.classList.remove("snake-body");
-    });
 
     snake.unshift([snake[0][0], numberAfter, direction]);
     snake.pop();
@@ -146,10 +197,6 @@ export function move(direction) {
     if (letterBefore == `${alphabet[gridSize]}`) return;
 
     // move valid
-    snakeClass.forEach((div) => {
-      div.classList.remove("snake-body");
-
-    });
     let letterAfter = getLetter(letterBefore, "next");
 
     snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
@@ -161,15 +208,19 @@ export function move(direction) {
 }
 
 function refreshSnake() {
+  let snakeClass = document.querySelectorAll(".snake-body");
+  snakeClass.forEach((div) => {
+      div.classList.remove("snake-body");
+    });
   
   snake.forEach((row) => {
     const snakeCell = document.querySelector(`#${row[0]}-${row[1]}`);
     snakeCell.classList.add("snake-body");
+    // console.log(snakeCell);
   });
     //console.log("aaa");
     
-    setClearInterval();
-    // up got it broken no class
+  setClearInterval();
 }
 
 function getLetter(letter, action) {

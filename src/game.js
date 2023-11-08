@@ -15,55 +15,60 @@ let snake = [ // each segment in a diff array
   ["b", "1", "right"] // tail
 ]
 
-console.log(snake);
-
-let snake1 = [ // go down
-  ["b", "5", "down"], //head
-  ["a", "5", "right"],
-  ["a", "4", "right"],
-  ["a", "3", "right"],
-  ["a", "2", "right"] // tail
-]
-let snake2 = [ // go down
-  ["c", "5", "down"], //head
-  ["b", "5", "down"],
-  ["a", "5", "right"],
-  ["a", "4", "right"],
-  ["a", "3", "right"] // tail
-]
-let snake3 = [ // go left
-  ["c", "4", "left"], //head
-  ["c", "5", "down"],
-  ["b", "5", "down"],
-  ["a", "5", "right"],
-  ["a", "4", "right"] // tail
-]
-
-let snake4 = [ // go left
-  ["c", "3", "left"], //head
-  ["c", "4", "left"],
-  ["c", "5", "down"],
-  ["b", "5", "down"],
-  ["a", "5", "right"] // tail
-]
 // numbers right left
 // letters up down
 let snakeHead = snake[0];
+let timer = null;
 
-let turn = [
-  ];
+function setClearInterval() {
+  if (timer) {
+    clearInterval(timer);
+  } 
+    timer = setInterval(snakeTimer, 2000, [snake[0][2]]);
+}
 
+export function snakeTimer(direction) {
+  let currentDirection = direction[0];
+  console.log(currentDirection);
+  
+  if (direction == "up") {
+    // block moving opposite way
+
+    let letterBefore = snake[0][0];
+    
+    // is move valid? 
+    if (letterBefore == "a") return;
+
+    // move valid
+    snakeClass.forEach((div) => {
+      div.classList.remove("snake-body");
+
+    });
+    let letterAfter = getLetter(letterBefore, "previous");
+
+    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`
+         ]);
+    snake.pop();
+
+    refreshSnake();
+
+  } 
+}
 
 export default function playGame() {
   
 refreshSnake();
+
 }
 
 
 export function move(direction) {
+  /* add when timer works
+  // if the head is already moving in the same direction as the user wants, do nothing
+  if (direction == snake[0][2]) return;
+  */
   let snakeClass = document.querySelectorAll(".snake-body");
 
-// dont move the same direction
 
   if (direction == "up") {
     // block moving opposite way
@@ -105,7 +110,7 @@ export function move(direction) {
     snake.unshift([snake[0][0], numberAfter, direction]);
     snake.pop();
     
-    console.log(snake);
+   // console.log(snake);
 
     refreshSnake();
     
@@ -127,7 +132,7 @@ export function move(direction) {
     snake.unshift([snake[0][0], numberAfter, direction]);
     snake.pop();
     
-    console.log(snake);
+   // console.log(snake);
 
     refreshSnake();
 
@@ -161,7 +166,10 @@ function refreshSnake() {
     const snakeCell = document.querySelector(`#${row[0]}-${row[1]}`);
     snakeCell.classList.add("snake-body");
   });
-    console.log("aaa");
+    //console.log("aaa");
+    
+    setClearInterval();
+    // up got it broken no class
 }
 
 function getLetter(letter, action) {
@@ -176,4 +184,15 @@ function getLetter(letter, action) {
   }
 }
 
-//console.log(getNextLetter("h"));
+function failGame() {
+  // show lose screen
+  
+}
+
+function restartGame() {
+  
+}
+
+// set timeouts for continuous movement same direction as head
+// arrow icons
+// spawn the food

@@ -28,3 +28,31 @@
 .column-1 {
   background-color: blue;
 }
+
+.arrows {
+  display: grid;
+  grid-template-areas: ". up ."
+                      "left down right";
+  width: 200px;
+  
+}
+
+.arrows img {
+  width: 50px;
+}
+
+.arrow-up {
+  grid-area: up;
+}
+
+.arrow-left {
+  grid-area: left;
+}
+
+.arrow-right {
+  grid-area: right;
+}
+
+.arrow-down {
+  grid-area: down;
+}

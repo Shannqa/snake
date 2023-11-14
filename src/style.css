@@ -56,3 +56,7 @@
 .arrow-down {
   grid-area: down;
 }
+
+.food {
+  background-color: blue;
+}

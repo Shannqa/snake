@@ -1,8 +1,9 @@
 const gridSize = 20;
 const alphabet = "xabcdefghijklmnopqrstuvwxyz".split("");
+let gridArray;
 
 export function createGridArray(size) {
-  const gridArray = [];
+  gridArray = [];
   // rows
   for (let r = 0; r < size + 1; r++) {
     gridArray.push([]);
@@ -24,7 +25,6 @@ export function createGridArray(size) {
 
 export default function createGrid() {
   const array = createGridArray(gridSize);
-  console.log(array);
 
   const body = document.querySelector("body");
   const grid = document.createElement("div");
@@ -52,4 +52,4 @@ export default function createGrid() {
   body.appendChild(grid);
 }
 
-export { alphabet, gridSize };
+export { alphabet, gridSize, gridArray };

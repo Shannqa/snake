@@ -1,6 +1,4 @@
-import { alphabet, gridSize } from "./grid.js";
-
-console.log(alphabet);
+import { alphabet, gridSize, gridArray } from "./grid.js";
 
 let snake = [
   // each segment in a diff array
@@ -10,7 +8,6 @@ let snake = [
   ["b", "2", "right"],
   ["b", "1", "right"], // tail
 ];
-
 // numbers right left
 // letters up down
 let timer = null;
@@ -19,21 +16,21 @@ function setClearInterval() {
   if (timer) {
     clearInterval(timer);
   }
-  timer = setInterval(snakeTimer, 2000, [snake[0][2]]);
+  timer = setInterval(snakeTimer, 500, [snake[0][2]]);
 }
 
 function refreshSnake() {
   let snakeClass = document.querySelectorAll(".snake-body");
   snakeClass.forEach((div) => {
     div.classList.remove("snake-body");
+    
   });
 
   snake.forEach((row) => {
     const snakeCell = document.querySelector(`#${row[0]}-${row[1]}`);
     snakeCell.classList.add("snake-body");
-    // console.log(snakeCell);
-  });
-
+    });
+  checkFood();
   setClearInterval();
 }
 
@@ -91,6 +88,7 @@ export function snakeTimer(direction) {
 }
 
 export default function playGame() {
+  spawnFood();
   refreshSnake();
 }
 
@@ -184,3 +182,38 @@ function failGame() {
 }
 
 function restartGame() {}
+
+function spawnFood() {
+  let randomNr = Math.floor(Math.random() * gridSize + 1);
+  let randomLetter = alphabet[Math.floor(Math.random() * gridSize + 1)];
+  let foodCell;
+  /*let snakeBody = [];
+  snakeBody.forEach((row) => {
+    snakeBody.push(`#${row[0]}-${row[1]}`);
+    // console.log(snakeCell);
+  })*/;
+
+  let foodId = `#${randomLetter}-${randomNr}`
+
+  snake.forEach((row) => {
+    if (`#${row[0]}-${row[1]}` == foodId) {
+      return spawnFood();
+    }
+  });
+  
+  foodCell = document.querySelector(foodId);
+
+  foodCell.classList.add("food");
+  console.log(foodCell);
+}
+
+function checkFood() {
+  let foodCell = document.querySelector(".food");
+  let foodId
+  
+  if (`#${snake[0]}-${snake[1]}` == foodCell.id) {
+    foodCell.classList.remove("food");
+    spawnFood();
+    
+  }
+}

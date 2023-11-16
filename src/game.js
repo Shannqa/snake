@@ -1,8 +1,12 @@
-import { alphabet, gridSize, gridArray } from "./grid.js";
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
+/* eslint-disable import/extensions */
+/* eslint-disable eqeqeq */
+import { alphabet, gridSize } from "./grid.js";
 
-let snake = [
+const snake = [
   // each segment in a diff array
-  ["b", "5", "right"], //head
+  ["b", "5", "right"], // head
   ["b", "4", "right"],
   ["b", "3", "right"],
   ["b", "2", "right"],
@@ -20,32 +24,31 @@ function setClearInterval() {
 }
 
 function refreshSnake() {
-  let snakeClass = document.querySelectorAll(".snake-body");
+  const snakeClass = document.querySelectorAll(".snake-body");
   snakeClass.forEach((div) => {
     div.classList.remove("snake-body");
-    
   });
 
   snake.forEach((row) => {
     const snakeCell = document.querySelector(`#${row[0]}-${row[1]}`);
     snakeCell.classList.add("snake-body");
-    });
+  });
   checkFood();
   setClearInterval();
 }
 
 export function snakeTimer(direction) {
-  let currentDirection = direction[0];
+  const currentDirection = direction[0];
   console.log(currentDirection);
 
   if (direction == "up") {
-    let letterBefore = snake[0][0];
+    const letterBefore = snake[0][0];
 
     // is move valid?
     if (letterBefore == "a") return;
 
     // move valid
-    let letterAfter = getLetter(letterBefore, "previous");
+    const letterAfter = getLetter(letterBefore, "previous");
 
     snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
     snake.pop();
@@ -54,8 +57,8 @@ export function snakeTimer(direction) {
     // is move valid?
     if (snake[0][1] <= 1) return;
 
-    let numberBefore = Number(snake[0][1]);
-    let numberAfter = numberBefore - 1;
+    const numberBefore = Number(snake[0][1]);
+    const numberAfter = numberBefore - 1;
 
     // move valid
     snake.unshift([snake[0][0], numberAfter, direction]);
@@ -65,21 +68,21 @@ export function snakeTimer(direction) {
     // is move valid?
     if (snake[0][1] >= gridSize) return;
 
-    let numberBefore = Number(snake[0][1]);
-    let numberAfter = numberBefore + 1;
+    const numberBefore = Number(snake[0][1]);
+    const numberAfter = numberBefore + 1;
 
     // move valid
     snake.unshift([snake[0][0], numberAfter, direction]);
     snake.pop();
     refreshSnake();
   } else if (direction == "down") {
-    let letterBefore = snake[0][0];
+    const letterBefore = snake[0][0];
 
     // is move valid?
     if (letterBefore == `${alphabet[gridSize]}`) return;
 
     // move valid
-    let letterAfter = getLetter(letterBefore, "next");
+    const letterAfter = getLetter(letterBefore, "next");
 
     snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
     snake.pop();
@@ -100,13 +103,13 @@ export function move(direction) {
     // block moving opposite way
     if (snake[0][2] == "down") return;
 
-    let letterBefore = snake[0][0];
+    const letterBefore = snake[0][0];
 
     // is move valid?
     if (letterBefore == "a") return;
 
     // move valid
-    let letterAfter = getLetter(letterBefore, "previous");
+    const letterAfter = getLetter(letterBefore, "previous");
 
     snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
     snake.pop();
@@ -119,8 +122,8 @@ export function move(direction) {
     // is move valid?
     if (snake[0][1] <= 1) return;
 
-    let numberBefore = Number(snake[0][1]);
-    let numberAfter = numberBefore - 1;
+    const numberBefore = Number(snake[0][1]);
+    const numberAfter = numberBefore - 1;
 
     // move valid
     snake.unshift([snake[0][0], numberAfter, direction]);
@@ -136,8 +139,8 @@ export function move(direction) {
     // is move valid?
     if (snake[0][1] >= gridSize) return;
 
-    let numberBefore = Number(snake[0][1]);
-    let numberAfter = numberBefore + 1;
+    const numberBefore = Number(snake[0][1]);
+    const numberAfter = numberBefore + 1;
 
     // move valid
 
@@ -151,13 +154,13 @@ export function move(direction) {
     // block moving opposite way
     if (snake[0][2] == "up") return;
 
-    let letterBefore = snake[0][0];
+    const letterBefore = snake[0][0];
 
     // is move valid?
     if (letterBefore == `${alphabet[gridSize]}`) return;
 
     // move valid
-    let letterAfter = getLetter(letterBefore, "next");
+    const letterAfter = getLetter(letterBefore, "next");
 
     snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
     snake.pop();
@@ -168,12 +171,12 @@ export function move(direction) {
 
 function getLetter(letter, action) {
   const alphabetArray = alphabet;
-  let nr = alphabetArray.indexOf(letter);
+  const nr = alphabetArray.indexOf(letter);
   if (action == "previous") {
-    let previousLetter = alphabetArray[nr - 1];
+    const previousLetter = alphabetArray[nr - 1];
     return previousLetter;
   }
-  let nextLetter = alphabetArray[nr + 1];
+  const nextLetter = alphabetArray[nr + 1];
   return nextLetter;
 }
 
@@ -184,36 +187,33 @@ function failGame() {
 function restartGame() {}
 
 function spawnFood() {
-  let randomNr = Math.floor(Math.random() * gridSize + 1);
-  let randomLetter = alphabet[Math.floor(Math.random() * gridSize + 1)];
-  let foodCell;
-  /*let snakeBody = [];
+  const randomNr = Math.floor(Math.random() * gridSize + 1);
+  const randomLetter = alphabet[Math.floor(Math.random() * gridSize + 1)];
+  const foodId = `#${randomLetter}-${randomNr}`;
+  const foodCell = document.querySelector(foodId);
+  /* let snakeBody = [];
   snakeBody.forEach((row) => {
     snakeBody.push(`#${row[0]}-${row[1]}`);
     // console.log(snakeCell);
-  })*/;
+  }) */
 
-  let foodId = `#${randomLetter}-${randomNr}`
-
+  // eslint-disable-next-line consistent-return
   snake.forEach((row) => {
     if (`#${row[0]}-${row[1]}` == foodId) {
       return spawnFood();
     }
   });
-  
-  foodCell = document.querySelector(foodId);
 
   foodCell.classList.add("food");
   console.log(foodCell);
 }
 
 function checkFood() {
-  let foodCell = document.querySelector(".food");
-  let foodId
-  
+  const foodCell = document.querySelector(".food");
+  let foodId;
+
   if (`#${snake[0]}-${snake[1]}` == foodCell.id) {
     foodCell.classList.remove("food");
     spawnFood();
-    
   }
 }

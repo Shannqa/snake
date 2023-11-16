@@ -1,20 +1,21 @@
+/* eslint-disable import/extensions */
 import createGrid from "./grid.js";
 import defaultExport, { move } from "./game.js";
-/*
+
 import arrowUpSrc from "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
 import arrowLeftSrc from "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
 import arrowRightSrc from "./arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
 import arrowDownSrc from "./arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
-*/
+
 function createDom() {
   const body = document.querySelector("body");
 
   createGrid();
-  
-  const arrowUpSrc = "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
-  const arrowLeftSrc = "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
-  const arrowRightSrc = "./arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
-  const arrowDownSrc = "./arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
+
+  // const arrowUpSrc = "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
+  // const arrowLeftSrc = "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
+  // const arrowRightSrc = "./arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
+  // const arrowDownSrc = "./arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
 
   const arrowUpImg = new Image();
   const arrowLeftImg = new Image();

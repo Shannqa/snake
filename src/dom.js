@@ -62,6 +62,22 @@ function createDom() {
   arrows.appendChild(downArrow);
 
   body.appendChild(arrows);
+
+  // keyboard listeners
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowUp") {
+      move("player", "up");
+    }
+    if (e.key === "ArrowDown") {
+      move("player", "down");
+    }
+    if (e.key === "ArrowLeft") {
+      move("player", "left");
+    }
+    if (e.key === "ArrowRight") {
+      move("player", "right");
+    }
+  });
 }
 
 export default createDom;

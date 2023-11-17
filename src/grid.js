@@ -5,10 +5,10 @@ const gridArray = [];
 
 export function createGridArray(size) {
   // rows
-  for (let r = 0; r < size + 1; r++) {
+  for (let r = 0; r < size; r++) {
     gridArray.push([]);
     // columns
-    for (let c = 0; c < size + 1; c++) {
+    for (let c = 0; c < size; c++) {
       gridArray[r].push(c);
     }
   }

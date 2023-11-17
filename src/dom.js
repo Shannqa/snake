@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import createGrid from "./grid.js";
-import defaultExport, { move } from "./game.js";
+import { move } from "./game.js";
 
 import arrowUpSrc from "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
 import arrowLeftSrc from "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
@@ -44,16 +44,16 @@ function createDom() {
   downArrow.classList.add("arrow-down");
 
   upArrow.addEventListener("click", () => {
-    move("up");
+    move("player", "up");
   });
   leftArrow.addEventListener("click", () => {
-    move("left");
+    move("player", "left");
   });
   rightArrow.addEventListener("click", () => {
-    move("right");
+    move("player", "right");
   });
   downArrow.addEventListener("click", () => {
-    move("down");
+    move("player", "down");
   });
 
   arrows.appendChild(upArrow);

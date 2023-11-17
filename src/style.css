@@ -6,7 +6,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(21, 18px);
+  grid-template-columns: repeat(20, 18px);
   column-gap: 0px;
   row-gap: 0px;
   justify-items: stretch;

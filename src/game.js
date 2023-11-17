@@ -34,12 +34,12 @@ function refreshSnake() {
     const snakeCell = document.querySelector(`#r${row[0]}c${row[1]}`);
     snakeCell.classList.add("snake-body");
   });
-  // checkFood();
+  checkFood();
   setClearInterval();
 }
 
 export default function playGame() {
-  // spawnFood();
+  spawnFood();
   refreshSnake();
 }
 
@@ -116,8 +116,9 @@ function failGame() {
 function restartGame() {}
 
 function spawnFood() {
-  const randomNr = Math.floor(Math.random() * gridSize + 1);
-  const foodId = `#${randomNr}-${randomNr}`;
+  const randomNr1 = Math.floor(Math.random() * gridSize);
+  const randomNr2 = Math.floor(Math.random() * gridSize);
+  const foodId = `#r${randomNr1}c${randomNr2}`;
   const foodCell = document.querySelector(foodId);
   /* let snakeBody = [];
   snakeBody.forEach((row) => {
@@ -126,8 +127,10 @@ function spawnFood() {
   }) */
 
   // eslint-disable-next-line consistent-return
+
+  // if food spawns on snake's body, spawn it again
   snake.forEach((row) => {
-    if (`#${row[0]}-${row[1]}` == foodId) {
+    if (`#r${row[0]}c${row[1]}` == foodId) {
       return spawnFood();
     }
   });
@@ -136,12 +139,11 @@ function spawnFood() {
   console.log(foodCell);
 }
 
+// check if the snake eats food
 function checkFood() {
   const foodCell = document.querySelector(".food");
-  let foodId;
-
-  if (`#${snake[0]}-${snake[1]}` == foodCell.id) {
+  if (`r${snake[0][0]}c${snake[0][1]}` == foodCell.id) {
     foodCell.classList.remove("food");
-    // spawnFood();
+    spawnFood();
   }
 }

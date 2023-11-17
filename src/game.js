@@ -15,13 +15,22 @@ const snake = [
   [10, 0, "right"], // tail
 ];
 
+const speedValues = [
+  500, 475, 450, 425, 400, 375, 350, 325, 300, 280, 260, 240, 220, 200, 190,
+  180, 170, 160, 150, 140, 130, 120, 110, 100, 95, 90, 85, 80, 75, 70, 65, 60,
+  55, 50,
+];
+
+let speedIncr = 0;
+
 let timer = null;
+let foodEaten = false;
 
 function setClearInterval() {
   if (timer) {
     clearInterval(timer);
   }
-  timer = setInterval(move, 500, "auto");
+  timer = setInterval(move, speedValues[speedIncr], "auto");
 }
 
 function refreshSnake() {
@@ -73,8 +82,6 @@ export function move(type, direction) {
 
     // move valid
     snake.unshift([numberAfter, snake[0][1], direction]);
-    snake.pop();
-    refreshSnake();
   } else if (direction == "left") {
     // is move valid?
     if (snake[0][1] < 1) return;
@@ -84,19 +91,14 @@ export function move(type, direction) {
 
     // move valid
     snake.unshift([snake[0][0], numberAfter, direction]);
-    snake.pop();
-    refreshSnake();
   } else if (direction == "right") {
     // is move valid?
     if (snake[0][1] >= gridSize - 1) return;
-
     const numberBefore = Number(snake[0][1]);
     const numberAfter = numberBefore + 1;
 
     // move valid
     snake.unshift([snake[0][0], numberAfter, direction]);
-    snake.pop();
-    refreshSnake();
   } else if (direction == "down") {
     if (snake[0][0] >= gridSize - 1) return;
     const numberBefore = Number(snake[0][0]);
@@ -104,9 +106,14 @@ export function move(type, direction) {
 
     // move valid
     snake.unshift([numberAfter, snake[0][1], direction]);
-    snake.pop();
-    refreshSnake();
   }
+
+  if (foodEaten === true) {
+    foodEaten = false;
+  } else {
+    snake.pop();
+  }
+  refreshSnake();
 }
 
 function failGame() {
@@ -145,5 +152,11 @@ function checkFood() {
   if (`r${snake[0][0]}c${snake[0][1]}` == foodCell.id) {
     foodCell.classList.remove("food");
     spawnFood();
+    foodEaten = true;
+    console.log(speedValues[speedIncr]);
+    if (speedIncr < speedValues.length - 1) {
+      speedIncr++;
+      console.log("a");
+    }
   }
 }

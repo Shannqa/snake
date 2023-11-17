@@ -1,25 +1,18 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable eqeqeq */
 const gridSize = 20;
-const alphabet = "xabcdefghijklmnopqrstuvwxyz".split("");
-let gridArray;
+const gridArray = [];
 
 export function createGridArray(size) {
-  gridArray = [];
   // rows
   for (let r = 0; r < size + 1; r++) {
     gridArray.push([]);
     // columns
     for (let c = 0; c < size + 1; c++) {
-      if (c == 0) {
-        // column with letters
-        gridArray[r].push(`${alphabet[r]}`);
-      } else if (r == 0) {
-        // row with numbers
-        gridArray[r].push(c);
-      } else {
-        gridArray[r].push(`${alphabet[r]}-${c}`);
-      }
+      gridArray[r].push(c);
     }
   }
+  console.log(gridArray);
   return gridArray;
 }
 
@@ -29,21 +22,11 @@ export default function createGrid() {
   const body = document.querySelector("body");
   const grid = document.createElement("div");
 
-  array.forEach((row, rowIndex) => {
-    row.forEach((cell, index) => {
+  array.forEach((row, index) => {
+    row.forEach((cell) => {
       const square = document.createElement("div");
-
-      if (rowIndex == 0) {
-        square.textContent = cell;
-      }
-
-      if (index == 0) {
-        square.textContent = cell;
-      }
-
       square.classList.add("square");
-      square.setAttribute("id", `${cell}`);
-      // square.textContent = array[cell];
+      square.setAttribute("id", `r${index}c${cell}`);
       grid.appendChild(square);
     });
   });
@@ -52,4 +35,4 @@ export default function createGrid() {
   body.appendChild(grid);
 }
 
-export { alphabet, gridSize, gridArray };
+export { gridSize, gridArray };

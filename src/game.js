@@ -2,15 +2,15 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/extensions */
 /* eslint-disable eqeqeq */
-import { alphabet, gridSize } from "./grid.js";
+import { gridSize } from "./grid.js";
 
 const snake = [
   // each segment in a diff array
-  ["b", "5", "right"], // head
-  ["b", "4", "right"],
-  ["b", "3", "right"],
-  ["b", "2", "right"],
-  ["b", "1", "right"], // tail
+  [10, 5, "right"], // head
+  [10, 4, "right"],
+  [10, 3, "right"],
+  [10, 2, "right"],
+  [10, 1, "right"], // tail
 ];
 // numbers right left
 // letters up down
@@ -20,7 +20,7 @@ function setClearInterval() {
   if (timer) {
     clearInterval(timer);
   }
-  timer = setInterval(snakeTimer, 500, [snake[0][2]]);
+  timer = setInterval(snakeTimer, 2000, [snake[0][2]]);
 }
 
 function refreshSnake() {
@@ -30,10 +30,10 @@ function refreshSnake() {
   });
 
   snake.forEach((row) => {
-    const snakeCell = document.querySelector(`#${row[0]}-${row[1]}`);
+    const snakeCell = document.querySelector(`#r${row[0]}c${row[1]}`);
     snakeCell.classList.add("snake-body");
   });
-  checkFood();
+  // checkFood();
   setClearInterval();
 }
 
@@ -42,15 +42,13 @@ export function snakeTimer(direction) {
   console.log(currentDirection);
 
   if (direction == "up") {
-    const letterBefore = snake[0][0];
-
     // is move valid?
-    if (letterBefore == "a") return;
+    if (snake[0][0] <= 1) return;
+    const numberBefore = Number(snake[0][0]);
+    const numberAfter = numberBefore - 1;
 
     // move valid
-    const letterAfter = getLetter(letterBefore, "previous");
-
-    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
+    snake.unshift([numberAfter, snake[0][1], direction]);
     snake.pop();
     refreshSnake();
   } else if (direction == "left") {
@@ -76,22 +74,20 @@ export function snakeTimer(direction) {
     snake.pop();
     refreshSnake();
   } else if (direction == "down") {
-    const letterBefore = snake[0][0];
-
     // is move valid?
-    if (letterBefore == `${alphabet[gridSize]}`) return;
+    if (snake[0][0] >= gridSize) return;
 
+    const numberBefore = Number(snake[0][0]);
+    const numberAfter = numberBefore + 1;
     // move valid
-    const letterAfter = getLetter(letterBefore, "next");
-
-    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
+    snake.unshift([numberAfter, snake[0][1], direction]);
     snake.pop();
     refreshSnake();
   }
 }
 
 export default function playGame() {
-  spawnFood();
+  // spawnFood();
   refreshSnake();
 }
 
@@ -103,17 +99,13 @@ export function move(direction) {
     // block moving opposite way
     if (snake[0][2] == "down") return;
 
-    const letterBefore = snake[0][0];
-
-    // is move valid?
-    if (letterBefore == "a") return;
+    if (snake[0][0] >= gridSize) return;
+    const numberBefore = Number(snake[0][0]);
+    const numberAfter = numberBefore - 1;
 
     // move valid
-    const letterAfter = getLetter(letterBefore, "previous");
-
-    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
+    snake.unshift([numberAfter, snake[0][1], direction]);
     snake.pop();
-
     refreshSnake();
   } else if (direction == "left") {
     // block moving opposite way
@@ -154,30 +146,15 @@ export function move(direction) {
     // block moving opposite way
     if (snake[0][2] == "up") return;
 
-    const letterBefore = snake[0][0];
-
-    // is move valid?
-    if (letterBefore == `${alphabet[gridSize]}`) return;
+    if (snake[0][0] >= gridSize) return;
+    const numberBefore = Number(snake[0][0]);
+    const numberAfter = numberBefore + 1;
 
     // move valid
-    const letterAfter = getLetter(letterBefore, "next");
-
-    snake.unshift([letterAfter, `${snake[0][1]}`, `${direction}`]);
+    snake.unshift([numberAfter, snake[0][1], direction]);
     snake.pop();
-
     refreshSnake();
   }
-}
-
-function getLetter(letter, action) {
-  const alphabetArray = alphabet;
-  const nr = alphabetArray.indexOf(letter);
-  if (action == "previous") {
-    const previousLetter = alphabetArray[nr - 1];
-    return previousLetter;
-  }
-  const nextLetter = alphabetArray[nr + 1];
-  return nextLetter;
 }
 
 function failGame() {
@@ -188,8 +165,7 @@ function restartGame() {}
 
 function spawnFood() {
   const randomNr = Math.floor(Math.random() * gridSize + 1);
-  const randomLetter = alphabet[Math.floor(Math.random() * gridSize + 1)];
-  const foodId = `#${randomLetter}-${randomNr}`;
+  const foodId = `#${randomNr}-${randomNr}`;
   const foodCell = document.querySelector(foodId);
   /* let snakeBody = [];
   snakeBody.forEach((row) => {
@@ -214,6 +190,6 @@ function checkFood() {
 
   if (`#${snake[0]}-${snake[1]}` == foodCell.id) {
     foodCell.classList.remove("food");
-    spawnFood();
+    // spawnFood();
   }
 }

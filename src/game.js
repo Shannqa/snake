@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
@@ -122,33 +123,32 @@ function failGame() {
 
 function restartGame() {}
 
-function spawnFood() {
+function getRandomCell() {
   const randomNr1 = Math.floor(Math.random() * gridSize);
   const randomNr2 = Math.floor(Math.random() * gridSize);
-  const foodId = `#r${randomNr1}c${randomNr2}`;
-  const foodCell = document.querySelector(foodId);
-  /* let snakeBody = [];
-  snakeBody.forEach((row) => {
-    snakeBody.push(`#${row[0]}-${row[1]}`);
-    // console.log(snakeCell);
-  }) */
+  return [randomNr1, randomNr2];
+}
 
-  // eslint-disable-next-line consistent-return
-
+function spawnFood() {
+  const randomCell = getRandomCell();
+  console.log(randomCell[0]);
   // if food spawns on snake's body, spawn it again
-  snake.forEach((row) => {
-    if (`#r${row[0]}c${row[1]}` == foodId) {
+  for (let i = 0; i < snake.length; i++) {
+    if (snake[i][0] == randomCell[0] && snake[i][1] == randomCell[1]) {
       return spawnFood();
     }
-  });
-
+  }
+  // if it's not on snake's body, mark the cell as food
+  const foodCell = document.querySelector(
+    `#r${randomCell[0]}c${randomCell[1]}`,
+  );
   foodCell.classList.add("food");
-  console.log(foodCell);
 }
 
 // check if the snake eats food
 function checkFood() {
   const foodCell = document.querySelector(".food");
+  // if snake's head is the same cell as food
   if (`r${snake[0][0]}c${snake[0][1]}` == foodCell.id) {
     foodCell.classList.remove("food");
     spawnFood();
@@ -156,7 +156,6 @@ function checkFood() {
     console.log(speedValues[speedIncr]);
     if (speedIncr < speedValues.length - 1) {
       speedIncr++;
-      console.log("a");
     }
   }
 }

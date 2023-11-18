@@ -7,19 +7,15 @@
 import { head } from "lodash";
 import { gridSize } from "./grid.js";
 
-const snake = [
-  // each segment in a diff array
-  [10, 4, "right"], // head
-  [10, 3, "right"],
-  [10, 2, "right"],
-  [10, 1, "right"],
-  [10, 0, "right"], // tail
-];
+export { score };
+
+let snake = [];
+let score = 0;
 
 const speedValues = [
   500, 475, 450, 425, 400, 375, 350, 325, 300, 280, 260, 240, 220, 200, 190,
   180, 170, 160, 150, 140, 130, 120, 110, 100, 95, 90, 85, 80, 75, 70, 65, 60,
-  55, 50,
+  55, 50, 48, 46, 44, 42, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30,
 ];
 
 let speedIncr = 0;
@@ -46,11 +42,6 @@ function refreshSnake() {
   });
   checkFood();
   setClearInterval();
-}
-
-export default function playGame() {
-  spawnFood();
-  refreshSnake();
 }
 
 export function move(type, direction) {
@@ -117,12 +108,6 @@ export function move(type, direction) {
   refreshSnake();
 }
 
-function failGame() {
-  // show lose screen
-}
-
-function restartGame() {}
-
 function getRandomCell() {
   const randomNr1 = Math.floor(Math.random() * gridSize);
   const randomNr2 = Math.floor(Math.random() * gridSize);
@@ -131,7 +116,6 @@ function getRandomCell() {
 
 function spawnFood() {
   const randomCell = getRandomCell();
-  console.log(randomCell[0]);
   // if food spawns on snake's body, spawn it again
   for (let i = 0; i < snake.length; i++) {
     if (snake[i][0] == randomCell[0] && snake[i][1] == randomCell[1]) {
@@ -152,6 +136,7 @@ function checkFood() {
   if (`r${snake[0][0]}c${snake[0][1]}` == foodCell.id) {
     foodCell.classList.remove("food");
     spawnFood();
+    updateScore();
     foodEaten = true;
     console.log(speedValues[speedIncr]);
     if (speedIncr < speedValues.length - 1) {
@@ -159,3 +144,48 @@ function checkFood() {
     }
   }
 }
+
+function updateScore() {
+  const scoreValue = document.querySelector(".score-value");
+  score += 10;
+  scoreValue.textContent = score;
+}
+
+export default function playGame() {
+  restartGame();
+  spawnFood();
+  refreshSnake();
+}
+
+function failGame() {
+  // show lose screen
+}
+
+function restartGame() {
+  // each segment in a diff array
+  snake = [
+    [10, 4, "right"], // head
+    [10, 3, "right"],
+    [10, 2, "right"],
+    [10, 1, "right"],
+    [10, 0, "right"], // tail
+  ];
+
+  // if any food items exist, delete them
+  const foodCell = document.querySelector(".food");
+  if (foodCell) {
+    foodCell.classList.remove("food");
+  }
+
+  // reset score
+  score = 0;
+}
+
+/* to do
+high scores - save them in cache
+fail screen
+fail game on touching snake's body
+fail game on touching the grid edges
+ui
+  change borders between squares, either remove entirely or make them light grey
+*/

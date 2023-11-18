@@ -6,4 +6,4 @@ import playGame from "./game.js";
 import createDom from "./dom.js";
 
 createDom();
-playGame();
+//playGame();

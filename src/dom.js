@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import createGrid from "./grid.js";
-import { move } from "./game.js";
+import playGame, { move } from "./game.js";
 
 import arrowUpSrc from "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
 import arrowLeftSrc from "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
@@ -78,6 +78,24 @@ function createDom() {
       move("player", "right");
     }
   });
+
+  // start
+  const info = document.createElement("div");
+  const startBtn = document.createElement("button");
+  startBtn.textContent = "Start game";
+  startBtn.addEventListener("click", playGame);
+  const scoreDiv = document.createElement("div");
+  const scoreLabel = document.createElement("span");
+  scoreLabel.textContent = "Score:";
+  const scoreValue = document.createElement("span");
+  scoreValue.textContent = "0";
+  scoreValue.classList.add("score-value");
+
+  scoreDiv.appendChild(scoreLabel);
+  scoreDiv.appendChild(scoreValue);
+  info.appendChild(startBtn);
+  info.appendChild(scoreDiv);
+  body.appendChild(info);
 }
 
 export default createDom;

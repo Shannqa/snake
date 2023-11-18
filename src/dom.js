@@ -90,11 +90,14 @@ function createDom() {
   const scoreValue = document.createElement("span");
   scoreValue.textContent = "0";
   scoreValue.classList.add("score-value");
+  const gameFailed = document.createElement("div");
+  gameFailed.classList.add("game-failed");
 
   scoreDiv.appendChild(scoreLabel);
   scoreDiv.appendChild(scoreValue);
   info.appendChild(startBtn);
   info.appendChild(scoreDiv);
+  info.appendChild(gameFailed);
   body.appendChild(info);
 }
 

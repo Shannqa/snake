@@ -60,3 +60,7 @@
 .food {
   background-color: blue;
 }
+
+.fail-inactive {
+  display: none;
+}

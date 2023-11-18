@@ -65,35 +65,39 @@ export function move(type, direction) {
     direction = headDirection;
   }
 
+  // snake's head eats the body
+  for (let i = 1; i < snake.length; i++) {
+    if (snake[0][0] === snake[i][0] && snake[0][1] === snake[i][1]) {
+      return failGame();
+    }
+  }
+
   if (direction == "up") {
-    if (snake[0][0] < 1) return;
+    // is move valid?
+    if (snake[0][0] < 1) return failGame();
     const numberBefore = Number(snake[0][0]);
     const numberAfter = numberBefore - 1;
-
     // move valid
     snake.unshift([numberAfter, snake[0][1], direction]);
   } else if (direction == "left") {
     // is move valid?
-    if (snake[0][1] < 1) return;
-
+    if (snake[0][1] < 1) return failGame();
     const numberBefore = Number(snake[0][1]);
     const numberAfter = numberBefore - 1;
-
     // move valid
     snake.unshift([snake[0][0], numberAfter, direction]);
   } else if (direction == "right") {
     // is move valid?
-    if (snake[0][1] >= gridSize - 1) return;
+    if (snake[0][1] >= gridSize - 1) return failGame();
     const numberBefore = Number(snake[0][1]);
     const numberAfter = numberBefore + 1;
-
     // move valid
     snake.unshift([snake[0][0], numberAfter, direction]);
   } else if (direction == "down") {
-    if (snake[0][0] >= gridSize - 1) return;
+    // is move valid?
+    if (snake[0][0] >= gridSize - 1) return failGame();
     const numberBefore = Number(snake[0][0]);
     const numberAfter = numberBefore + 1;
-
     // move valid
     snake.unshift([numberAfter, snake[0][1], direction]);
   }
@@ -156,7 +160,15 @@ export default function playGame() {
 }
 
 function failGame() {
+  // stop snake's movement
+  if (timer) {
+    clearInterval(timer);
+  }
+
   // show lose screen
+  const gameFailed = document.querySelector(".game-failed");
+  gameFailed.classList.remove("fail-inactive");
+  gameFailed.textContent = `The game ends! Your score: ${score}`;
 }
 
 function restartGame() {
@@ -177,6 +189,10 @@ function restartGame() {
 
   // reset score
   score = 0;
+
+  // info
+  const gameFailed = document.querySelector(".game-failed");
+  gameFailed.classList.add("fail-inactive");
 }
 
 /* to do

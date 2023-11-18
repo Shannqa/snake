@@ -7,8 +7,6 @@
 import { head } from "lodash";
 import { gridSize } from "./grid.js";
 
-export { score };
-
 let snake = [];
 let score = 0;
 

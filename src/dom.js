@@ -2,20 +2,21 @@
 import createGrid from "./grid.js";
 import playGame, { move } from "./game.js";
 
-import arrowUpSrc from "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
-import arrowLeftSrc from "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
-import arrowRightSrc from "./arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
-import arrowDownSrc from "./arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
+  const arrowUpSrc = "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
+  const arrowLeftSrc = "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
+  const arrowRightSrc = "./arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
+  const arrowDownSrc = "./arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
+/*
+  import arrowUpSrc from "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
+  import arrowLeftSrc from "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
+  import arrowRightSrc from "./arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
+  import arrowDownSrc from "./arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
+*/
 
 function createDom() {
   const body = document.querySelector("body");
 
   createGrid();
-
-  // const arrowUpSrc = "./arrow_upward_FILL0_wght400_GRAD0_opsz24.svg";
-  // const arrowLeftSrc = "./arrow_back_FILL0_wght400_GRAD0_opsz24.svg";
-  // const arrowRightSrc = "./arrow_forward_FILL0_wght400_GRAD0_opsz24.svg";
-  // const arrowDownSrc = "./arrow_downward_FILL0_wght400_GRAD0_opsz24.svg";
 
   const arrowUpImg = new Image();
   const arrowLeftImg = new Image();
@@ -61,7 +62,6 @@ function createDom() {
   arrows.appendChild(rightArrow);
   arrows.appendChild(downArrow);
 
-  body.appendChild(arrows);
 
   // keyboard listeners
   document.addEventListener("keydown", (e) => {
@@ -81,6 +81,7 @@ function createDom() {
 
   // start
   const info = document.createElement("div");
+  info.classList.add("info");
   const startBtn = document.createElement("button");
   startBtn.textContent = "Start game";
   startBtn.addEventListener("click", playGame);
@@ -96,9 +97,11 @@ function createDom() {
   scoreDiv.appendChild(scoreLabel);
   scoreDiv.appendChild(scoreValue);
   info.appendChild(startBtn);
-  info.appendChild(scoreDiv);
   info.appendChild(gameFailed);
+  info.appendChild(scoreDiv);
   body.appendChild(info);
+  body.appendChild(arrows);
+
 }
 
 export default createDom;

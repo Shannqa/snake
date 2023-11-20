@@ -16,20 +16,29 @@
 .square {
   width: 18px;
   height: 18px;
-  border: 1px black solid;
+  border: 1px rgb(210, 210, 210) solid;
   background: white;
   margin: 0px;
 }
 
 .snake-body {
-  background-color: red;
+  background-color: rgb(76, 170, 202);
+  border: 1px rgba(76, 138, 176) solid;
 }
 
 .column-1 {
   background-color: blue;
 }
 
+.info {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  padding: 4px;
+}
+
 .arrows {
+  margin: 0 auto;
   display: grid;
   grid-template-areas: ". up ."
                       "left down right";
@@ -58,7 +67,8 @@
 }
 
 .food {
-  background-color: blue;
+  background-color: rgb(95, 170, 85);
+  border: 1px rgba(73, 152, 69, 1) solid;
 }
 
 .fail-inactive {

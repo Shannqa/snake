@@ -1,0 +1,12 @@
+- add special food that disappears after a short amount of time and gives more score points
+- highscores: save the current score into cache, load previous scores
+  - congratulate the player after achieveing a new highscore
+- make sure the game ends when snakes head touches the body
+- ui:
+  - change food/snake color, possibly add animation
+  - make grid border light grey or remove it
+  - change arrow buttons
+  - change play game button, add play again button after a game over
+  - responsive design:
+    - on mobile the grid should cover the whole screen width, but it should fit arrows and score underneath plus the play button. after game over show the high scores and play again button
+    - on pc the grid should take most of the screen, underneath would be current score and arrows. play/play again btns and high scores could be on one side of the grid

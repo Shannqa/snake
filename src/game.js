@@ -4,7 +4,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/extensions */
 /* eslint-disable eqeqeq */
-import { head } from "lodash";
+//import { head } from "lodash";
 import { gridSize } from "./grid.js";
 
 let snake = [];
@@ -168,7 +168,9 @@ function failGame() {
   // show lose screen
   const gameFailed = document.querySelector(".game-failed");
   gameFailed.classList.remove("fail-inactive");
-  gameFailed.textContent = `The game ends! Your score: ${score}`;
+  gameFailed.textContent = `Game over! Your score: ${score}`;
+  
+    // disable arrows and keyboard event listeners
 }
 
 function restartGame() {
@@ -188,11 +190,15 @@ function restartGame() {
   }
 
   // reset score
+  const scoreValue = document.querySelector(".score-value");
   score = 0;
+  scoreValue.textContent = score;
 
   // info
   const gameFailed = document.querySelector(".game-failed");
   gameFailed.classList.add("fail-inactive");
+  
+  // enable arrows and keyboard event listeners
 }
 
 /* to do
